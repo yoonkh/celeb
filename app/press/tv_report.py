@@ -2,7 +2,6 @@ import sys
 from bs4 import BeautifulSoup
 import urllib.request
 from urllib.parse import quote
-import word_test
 
 # TV리포트
 from app import keywords

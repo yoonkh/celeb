@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+print(dotenv_path)
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
 
@@ -15,7 +16,7 @@ import sys
 import click
 from flask_migrate import Migrate, upgrade
 from app import create_app, db
-from app.models import User, Follow, Role, Permission, Post, Comment
+from app.models import Article
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 migrate = Migrate(app, db)
@@ -66,14 +67,14 @@ def profile(length, profile_dir):
     app.run()
 
 
-@app.cli.command()
-def deploy():
-    """Run deployment tasks."""
-    # migrate database to latest revision
-    upgrade()
-
-    # create or update user roles
-    Role.insert_roles()
-
-    # ensure all users are following themselves
-    User.add_self_follows()
+# @app.cli.command()
+# def deploy():
+#     """Run deployment tasks."""
+#     # migrate database to latest revision
+#     upgrade()
+#
+#     # create or update user roles
+#     Role.insert_roles()
+#
+#     # ensure all users are following themselves
+#     User.add_self_follows()
