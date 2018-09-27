@@ -4,7 +4,8 @@ import urllib.request
 from urllib.parse import quote
 
 # TV리포트
-from app import keywords
+from app import keywords, text_cleaner, db
+from app.models import Article
 
 TARGET_URL_BEFORE_KEYWORD = 'http://www.tvreport.co.kr/?c=news&m=search&q='
 
@@ -12,7 +13,7 @@ print('word_test24_start')
 
 
 # 기사 검색 페이지에서 기사 제목에 링크된 기사 본문 주소 받아오기
-def get_link_from_news_title(URL, output_file):
+def get_link_from_news_title(URL):
     # for i in range(page_num):
     # current_page_num = i
     # position = URL.index('r/')
@@ -30,82 +31,34 @@ def get_link_from_news_title(URL, output_file):
         #     # print(title)
         #     title_link = title['href']
         #     print(title_link)
-        get_text(title_link, output_file)
 
+        # 기사 본문 내용 긁어오기 (위 함수 내부에서 기사 본문 주소 받아 사용되는 함수)
+        source_code_from_url = urllib.request.urlopen(title_link)
+        soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
+        content_of_article = soup.select('div#CmAdContent')
+        print(content_of_article)
+        # for item in content_of_article_title + content_of_article:
+        for item in content_of_article:
+            string = str(item.find_all(text=True))
+            print(string)
+            string_item = text_cleaner.clean_text(string)
+            a = Article(title_name=title_link, body=string_item)
+            db.session.add(a)
+            db.session.commit()
 
-# 기사 본문 내용 긁어오기 (위 함수 내부에서 기사 본문 주소 받아 사용되는 함수)
-def get_text(URL, output_file):
-    source_code_from_url = urllib.request.urlopen(URL)
-    soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
-    content_of_article = soup.select('div#CmAdContent')
-    print(content_of_article)
-    # for item in content_of_article_title + content_of_article:
-    for item in content_of_article:
-        string_item = str(item.find_all(text=True))
-        output_file.write('\n\n\n' + string_item)
 
 
 # 메인함수
-def main(argv):
+def main():
 
     for keyword in keywords.keywords1:
         print(keyword)
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
-        output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, output_file)
-        output_file.close()
-    for keyword in keywords.keywords2:
-        print(keyword)
-        k = keyword
-        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
-        output_file = open('방탄소년단_in.txt', 'a')
-        get_link_from_news_title(url, output_file)
-        output_file.close()
-    for keyword in keywords.keywords3:
-        print(keyword)
-        k = keyword
-        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
-        output_file = open('엑소_in.txt', 'a')
-        get_link_from_news_title(url, output_file)
-        output_file.close()
-    for keyword in keywords.keywords4:
-        print(keyword)
-        k = keyword
-        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
-        output_file = open('비투비_in.txt', 'a')
-        get_link_from_news_title(url, output_file)
-        output_file.close()
-    for keyword in keywords.keywords5:
-        print(keyword)
-        k = keyword
-        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
-        output_file = open('세븐틴_in.txt', 'a')
-        get_link_from_news_title(url, output_file)
-        output_file.close()
-    for keyword in keywords.keywords6:
-        print(keyword)
-        k = keyword
-        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
-        output_file = open('뉴이스트_in.txt', 'a')
-        get_link_from_news_title(url, output_file)
-        output_file.close()
-    for keyword in keywords.keywords7:
-        print(keyword)
-        k = keyword
-        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
-        output_file = open('트와이스_in.txt', 'a')
-        get_link_from_news_title(url, output_file)
-        output_file.close()
-    for keyword in keywords.keywords8:
-        print(keyword)
-        k = keyword
-        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
-        output_file = open('레드벨벳_in.txt', 'a')
-        get_link_from_news_title(url, output_file)
-        output_file.close()
-    print('word_test24_end')
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(url)
+        # output_file.close()
 
 
-if __name__ == '__main__':
-    main(sys.argv)
+# if __name__ == '__main__':
+#     main(sys.argv)

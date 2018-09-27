@@ -16,7 +16,7 @@ print('word_test_start')
 
 
 # 기사 검색 페이지에서 기사 제목에 링크된 기사 본문 주소 받아오기
-def get_link_from_news_title(page_num, URL):
+def get_link_from_news_title(page_num, URL, type):
         for i in range(page_num):
             current_page_num = 1 + i * 15
             position = URL.index('=')
@@ -44,7 +44,7 @@ def get_link_from_news_title(page_num, URL):
                     string = str(item.find_all(text=True))
                     print(string)
                     string_item = text_cleaner.clean_text(string)
-                    a = Article(title_name=article_URL, body=string_item)
+                    a = Article(title_name=article_URL, body=string_item, type=type)
                     db.session.add(a)
                     db.session.commit()
                     # output_file.write('\n\n\n' + string_item)
@@ -54,10 +54,19 @@ def main():
 
     for keyword in keywords.keywords1:
         print(keyword)
+        type = '워너원'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url)
+        get_link_from_news_title(3, url, type)
+
+    for keyword in keywords.keywords2:
+        print(keyword)
+        type = '방탄소년단'
+        k = keyword
+        url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(3, url, type)
         # output_file.close()
     # for keyword in keywords.keywords2:
     #     print(keyword)
@@ -114,4 +123,4 @@ def main():
 #
 # if __name__ == '__main__':
 #     main()
-#     # tv_report.main()
+# tv_report.main()
