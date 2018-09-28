@@ -12,20 +12,3 @@ def clean_text(text):
     cleaned_text = re.sub('[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]',
                           '', cleaned_text)
     return cleaned_text
-
-
-
-# 메인 함수
-def main():
-    for i in INPUT_FILE_NAME:
-        read_file = open(i, 'r')
-        write_file = open(i[:-7]+'_out.txt', 'w')
-        text = read_file.read()
-        text = clean_text(text)
-        write_file.write(text)
-        read_file.close()
-        write_file.close()
-
-
-if __name__ == "__main__":
-    main()

@@ -13,7 +13,7 @@ print('word_test24_start')
 
 
 # 기사 검색 페이지에서 기사 제목에 링크된 기사 본문 주소 받아오기
-def get_link_from_news_title(URL):
+def get_link_from_news_title(URL, type):
     # for i in range(page_num):
     # current_page_num = i
     # position = URL.index('r/')
@@ -42,22 +42,69 @@ def get_link_from_news_title(URL):
             string = str(item.find_all(text=True))
             print(string)
             string_item = text_cleaner.clean_text(string)
-            a = Article(title_name=title_link, body=string_item)
+            a = Article(title_name=title_link, body=string_item, type=type)
             db.session.add(a)
             db.session.commit()
-
-
 
 # 메인함수
 def main():
 
     for keyword in keywords.keywords1:
         print(keyword)
+        type = '워너원'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url)
-        # output_file.close()
+        get_link_from_news_title(url, type)
+    for keyword in keywords.keywords1:
+        print(keyword)
+        type = '방탄소년단'
+        k = keyword
+        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(url, type)
+    for keyword in keywords.keywords1:
+        print(keyword)
+        type = '엑소'
+        k = keyword
+        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(url, type)
+    for keyword in keywords.keywords1:
+        print(keyword)
+        type = '비투비'
+        k = keyword
+        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(url, type)
+    for keyword in keywords.keywords1:
+        print(keyword)
+        type = '세븐틴'
+        k = keyword
+        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(url, type)
+    for keyword in keywords.keywords1:
+        print(keyword)
+        type = '뉴이스트'
+        k = keyword
+        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(url, type)
+    for keyword in keywords.keywords1:
+        print(keyword)
+        type = '트와이스'
+        k = keyword
+        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(url, type)
+    for keyword in keywords.keywords1:
+        print(keyword)
+        type = '래드벨벳'
+        k = keyword
+        url = TARGET_URL_BEFORE_KEYWORD + quote(k)
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(url, type)
 
 
 # if __name__ == '__main__':

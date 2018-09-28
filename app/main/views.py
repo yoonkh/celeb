@@ -1,9 +1,4 @@
-from flask import render_template, redirect, url_for, abort, flash, request,\
-    current_app, make_response
-from flask_login import login_required, current_user
-from flask_sqlalchemy import get_debug_queries
-
-from app.press import sports_dong_a, tv_report
+from app.press import sports_dong_a, tv_report, sports_seoul
 from . import main
 
 
@@ -14,6 +9,7 @@ def index():
 
 @main.route('/crawl')
 def crawl():
-    sports_dong_a.main()
+    # sports_dong_a.main()
     # tv_report.main()
+    sports_seoul.main()
     return '<marquee><h1>Success - Crawling</h1></marquee>'
