@@ -13,7 +13,7 @@ TARGET_URL_REST = '&check_news=6&more=1&sorting=1&search_date=1&v1=&v2=&range=1'
 
 
 # 기사 검색 페이지에서 기사 제목에 링크된 기사 본문 주소 받아오기
-def get_link_from_news_title(page_num, URL, type):
+def get_link_from_news_title(page_num, URL, type, press):
         for i in range(page_num):
             current_page_num = 1 + i * 15
             position = URL.index('=')
@@ -29,10 +29,8 @@ def get_link_from_news_title(page_num, URL, type):
                 print(article_URL)
 
 
-# 기사 본문 내용 긁어오기 (위 함수 내부에서 기사 본문 주소 받아 사용되는 함수)
                 source_code_from_url = urllib.request.urlopen(article_URL)
                 soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
-                # 동아일보 기사 제목도 함께 추출
                 # content_of_article_title = soup.select('div.article_title > h2')
                 content_of_article = soup.select('div.article_txt')
                 # print(content_of_article)
@@ -41,7 +39,7 @@ def get_link_from_news_title(page_num, URL, type):
                     string = str(item.find_all(text=True))
                     print(string)
                     string_item = text_cleaner.clean_text(string)
-                    a = Article(title_name=article_URL, body=string_item, type=type)
+                    a = Article(title_name=article_URL, body=string_item, type=type, press=press)
                     db.session.add(a)
                     db.session.commit()
                     # output_file.write('\n\n\n' + string_item)
@@ -53,60 +51,68 @@ def main():
     for keyword in keywords.keywords1:
         print(keyword)
         type = '워너원'
+        press = '스포츠 동아'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type)
+        get_link_from_news_title(3, url, type, press)
 
     for keyword in keywords.keywords2:
         print(keyword)
         type = '방탄소년단'
+        press = '스포츠 동아'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type)
+        get_link_from_news_title(3, url, type, press)
     for keyword in keywords.keywords2:
         print(keyword)
         type = '엑소'
+        press = '스포츠 동아'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type)
+        get_link_from_news_title(3, url, type, press)
     for keyword in keywords.keywords2:
         print(keyword)
         type = '비투비'
+        press = '스포츠 동아'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type)
+        get_link_from_news_title(3, url, type, press)
     for keyword in keywords.keywords2:
         print(keyword)
         type = '세븐틴'
+        press = '스포츠 동아'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type)
+        get_link_from_news_title(3, url, type, press)
     for keyword in keywords.keywords2:
         print(keyword)
         type = '뉴이스트'
+        press = '스포츠 동아'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type)
+        get_link_from_news_title(3, url, type, press)
     for keyword in keywords.keywords2:
         print(keyword)
         type = '트와이스'
+        press = '스포츠 동아'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type)
+        get_link_from_news_title(3, url, type, press)
     for keyword in keywords.keywords2:
         print(keyword)
         type = '레드벨벳'
+        press = '스포츠 동아'
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type)
+        get_link_from_news_title(3, url, type, press)
 
 # print('word_test_end')
 
