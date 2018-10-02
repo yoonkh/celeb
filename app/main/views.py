@@ -1,5 +1,5 @@
 from app.press import sports_dong_a, tv_report, sports_seoul, sports_hangook, sports_world, joynews_inews, sbs, enews24, \
-    isplus, newsen
+    isplus, newsen, mydaily, star_news, sports_khan, sports_chosun, sports_today
 from . import main
 
 
@@ -19,5 +19,10 @@ def crawl():
     # sbs.main()
     # enews24.main()
     # isplus.main()
-    newsen.main()
+    # newsen.main()
+    # mydaily.main()
+    # star_news.main()
+    # sports_khan.main()
+    # sports_chosun.main()
+    sports_today.main()
     return '<h1>Success - Crawling</h1>'

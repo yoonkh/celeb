@@ -1,53 +1,19 @@
+import sys
 from bs4 import BeautifulSoup
 import urllib.request
 from urllib.parse import quote
-from selenium import webdriver
 
-# 스포츠동아
-from app import keywords, db, text_cleaner
+from app import text_cleaner, db, keywords
 from app.models import Article
-from app.press import tv_report
 
-TARGET_URL_BEFORE_BASE = "http://www.newsen.com"
-TARGET_URL_BEFORE_KEYWORD = '/news_list.php?vm=list&searchperiod=all&search=title&searchstring='
-TARGET_URL_REST = '&page='
+
+TARGET_URL_BEFORE_KEYWORD = 'http://stoo.asiae.co.kr/sch/index.htm?sm=1&sn='
+TARGET_URL_BEFORE_PAGE = '&udt=3&sort=&st=1&dm=1&ds=&de=&od=2&pg='
+
 
 # 기사 검색 페이지에서 기사 제목에 링크된 기사 본문 주소 받아오기
 def get_link_from_news_title(page_num, URL, type, press):
-    # downloadDestination = 'http://www.newsen.com/'
-    #
-    # # dir = r'/etc/apt/sources.list.d/google.list'
-    # driver = webdriver.Chrome('/usr/bin/chromedriver')
-    # driver.get(downloadDestination)
-    #
-    # # driver.find_element_by_xpath('//*[@id="header_tving"]/div[1]/div/div[4]/button').click()
-    # driver.find_element_by_xpath('//*[@id="search_form"]/input[2]').send_keys(keyword)
-    # driver.find_element_by_xpath('//*[@id="search_form"]/input[3]').click()
-    # # driver.find_element_by_name('kw').send_keys(keyword)
-    # # driver.find_element_by_xpath('//*[@id="search"]/fieldset/div/button').click()
-    # # driver.find_element_by_xpath('//*[@id="news_list"]/div[3]/span/a').click()
-    #
-    # for a in driver.find_elements_by_xpath(
-    #         '/html/body/p/table/tbody/tr/td/table/tbody/tr/td/p/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr/td/a'):
-    #     # print(a.get_attribute('href'))
-    #     url = a.get_attribute('href')
-    #     str_url = str(url)
-    #     print(str_url)
-    #
-    #     source_code_from_url = urllib.request.urlopen(str_url)
-    #     soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
-    #     print(soup)
-    #     content_of_article = soup.select('div#CLtag')
-    #     print(content_of_article)
-    #     # for item in content_of_article_title + content_of_article:
-    #     for item in content_of_article:
-    #         # print(item)
-    #         string = str(item.find_all(text=True))
-    #         string_item = text_cleaner.clean_text(string)
-    #         a = Article(title_name=str_url, body=string_item, type=type, press=press)
-    #         db.session.add(a)
-    #         db.session.commit()
-    #         print('#####################Success######################')
+
     for i in range(page_num):
         current_page_num = 1 + i
         URL_with_page_num = URL + str(current_page_num)
@@ -58,42 +24,45 @@ def get_link_from_news_title(page_num, URL, type, press):
         # print(soup.find_all('div', 'section_list_text'))
 
         try:
-            for title in soup.select('td > a.line'):
-                title_link = title[0]
+            for title in soup.select('dl > dt > a'):
+            #     # print(title)
+                title_link = title['href']
                 print(title_link)
-                edit_title_link_keyword = title_link[65:]
-                # print(edit_title_link_keyword)
-                edit_title_link = TARGET_URL_BEFORE_BASE+title_link[1:65]+quote(edit_title_link_keyword)
-                # print(edit_title_link)
-
-                source_code_from_url = urllib.request.urlopen(edit_title_link)
+            #     article_URL = title_link[0]['href']
+            #     # print(article_URL)
+                # print(article_URL)
+                req = urllib.request.Request(title_link, headers={'User-Agent': 'Mozilla/5.0'})
+                source_code_from_url = urllib.request.urlopen(req)
                 soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
+
                 # 동아일보 기사 제목도 함께 추출
                 # content_of_article_title = soup.select('div.article_title > h2')
-                content_of_article = soup.select('div#CLtag')
+                content_of_article = soup.select('div#article')
 
                 # for item in content_of_article_title + content_of_article:
                 for item in content_of_article:
                     string = str(item.find_all(text=True))
                     print(string)
                     string_item = text_cleaner.clean_text(string)
-                    a = Article(title_name=edit_title_link, body=string_item, type=type, press=press)
+                    a = Article(title_name=title_link, body=string_item, type=type, press=press)
                     db.session.add(a)
                     db.session.commit()
-        except Exception:
-            continue
 
-# 메인함수
+        except Exception:
+            pass
+
+
+
 def main():
 
     for keyword in keywords.keywords1:
         print(keyword)
         type = '워너원'
-        press = '뉴스엔'
+        press = '스포츠투데이'
         k = keyword
-        url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
+        url = TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') \
+                 + TARGET_URL_BEFORE_PAGE
         # output_file = open('워너원_in.txt', 'a')
-        # get_link_from_news_title(k, type, press)
         get_link_from_news_title(3, url, type, press)
 
     # for keyword in keywords.keywords2:
@@ -145,10 +114,3 @@ def main():
     #     url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k) + TARGET_URL_REST
     #     # output_file = open('워너원_in.txt', 'a')
     #     get_link_from_news_title(3, url, type)
-
-# print('word_test_end')
-
-#
-# if __name__ == '__main__':
-#     main()
-# tv_report.main()
