@@ -4,28 +4,30 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 import urllib.request
 import itertools
+
+from selenium.webdriver.support.select import Select
+
 from app import db, text_cleaner, keywords
 from app.models import Article
-
-# print(driver.current_url)
 
 
 def get_link_from_news_title(keyword, type, press):
 
     try:
-        downloadDestination = 'http://www.sportsworldi.com'
+        downloadDestination = 'http://www.sportsworldi.com/search/main.do'
 
         # dir = r'/etc/apt/sources.list.d/google.list'
         driver = webdriver.Chrome('/usr/bin/chromedriver')
         driver.get(downloadDestination)
 
         # driver.find_element_by_name("kw").clear()
-        driver.find_element_by_name('searchWordBox').send_keys(keyword)
-        driver.find_element_by_class_name("search").click()
+        driver.find_element_by_id('searchWord').send_keys(keyword)
+        driver.find_element_by_xpath('//*[@id="wps_layout1_box1"]/div/div/div[2]/a/img').click()
         # driver.find_element_by_id('newsExtMore').click()
 
+        time.sleep(3)
+
         for a in driver.find_elements_by_xpath('//*[@id="searchResult"]/div/dl/dt/a'):
-            # print(a.get_attribute('href'))
             url = a.get_attribute('href')
             str_url = str(url)
             print(str_url)

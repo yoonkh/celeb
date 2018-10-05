@@ -10,7 +10,6 @@ from app.models import Article
 
 # print(driver.current_url)
 
-
 def get_link_from_news_title(keyword, type, press):
 
     try:
@@ -25,7 +24,9 @@ def get_link_from_news_title(keyword, type, press):
         driver.find_element_by_class_name("btn").click()
         driver.find_element_by_id('newsExtMore').click()
 
-        for a in driver.find_elements_by_xpath('//*[@id="SectionCenter"]/div/div/ul/li/a'):
+        xpath = driver.find_elements_by_xpath('//*[@id="SectionCenter"]/div/div/ul[2]/li[1]/a')
+
+        for a in xpath:
             # print(a.get_attribute('href'))
             url = a.get_attribute('href')
             str_url = str(url)
