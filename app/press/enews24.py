@@ -8,8 +8,6 @@ from app import db, text_cleaner, keywords
 from app.models import Article
 
 
-# print(driver.current_url)
-
 
 def get_link_from_news_title(keyword, type, press):
 
@@ -18,35 +16,42 @@ def get_link_from_news_title(keyword, type, press):
     # dir = r'/etc/apt/sources.list.d/google.list'
     driver = webdriver.Chrome('/usr/bin/chromedriver')
     driver.get(downloadDestination)
+
     try:
         # driver.find_element_by_xpath('//*[@id="header_tving"]/div[1]/div/div[4]/button').click()
         driver.find_element_by_xpath('//*[@id="search"]').send_keys(keyword)
         # driver.find_element_by_name('kw').send_keys(keyword)
         driver.find_element_by_xpath('//*[@id="sendSearch"]').click()
         driver.find_element_by_xpath('//*[@id="container"]/div/div[1]/div[3]/div[2]/a').click()
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        driver.find_element_by_xpath('//*[@id="container"]/div/div[1]/div[3]/div[2]/button').click()
+        time.sleep(3)
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         driver.find_element_by_xpath('//*[@id="container"]/div/div[1]/div[3]/div[2]/button').click()
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(3)
-        driver.find_element_by_xpath('//*[@id="container"]/div/div[1]/div[3]/div[2]/button').click()
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+        text = ""
+
+        for t in driver.find_elements_by_xpath(
+                '//*[@id="container"]/div/div[1]/div[3]/div[2]/ul/li/div/h3/span'):
+            text = t.get_attribute('innerText')
 
         for a in driver.find_elements_by_xpath('//*[@id="container"]/div/div/div/div/ul/li/div/a'):
             # print(a.get_attribute('href'))
             url = a.get_attribute('href')
             str_url = str(url)
-            print(str_url)
-
+            # print(str_url)
             # if len(str_url) < 44:
             source_code_from_url = urllib.request.urlopen(str_url)
             soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
             content_of_article = soup.select('div.articleContents')
-            print(content_of_article)
             # for item in content_of_article_title + content_of_article:
             for item in content_of_article:
                 # print(item)
                 string = str(item.find_all(text=True))
                 string_item = text_cleaner.clean_text(string)
-                a = Article(title_name=str_url, body=string_item, type=type, press=press)
+                a = Article(title_name=text, body=string_item, type=type, press=press)
                 db.session.add(a)
                 db.session.commit()
                 print('#####################Success######################')
