@@ -1,3 +1,4 @@
+from app.models import Article
 from app.press import sports_dong_a, tv_report, sports_seoul, sports_hangook, sports_world, joynews_inews, sbs, enews24, \
     isplus, newsen, mydaily, star_news, sports_khan, sports_chosun, sports_today, xports_news, mbc_sports_plus, \
     mk_sports, osen, spotv_news, ten_asia, tv_daily, heraldpop
