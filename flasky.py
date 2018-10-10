@@ -17,8 +17,15 @@ import click
 from flask_migrate import Migrate, upgrade
 from app import create_app, db
 from app.models import Article
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+
+admin = Admin(app, name='Celebee-Admin', template_mode='bootstrap3')
+admin.add_view(ModelView(Article, db.session))
+
 migrate = Migrate(app, db)
 
 
@@ -64,6 +71,8 @@ def profile(length, profile_dir):
     from werkzeug.contrib.profiler import ProfilerMiddleware
     app.wsgi_app = ProfilerMiddleware(app.wsgi_app, restrictions=[length],
                                       profile_dir=profile_dir)
+
+
     app.run()
 
 

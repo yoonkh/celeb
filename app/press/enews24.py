@@ -6,11 +6,15 @@ from app import db, text_cleaner, keywords
 from app.models import Article
 
 
-def get_link_from_news_title(keyword, type, press, txt=None, str_url=None, string_item=None):
+
+
+def get_link_from_news_title(keyword, type, press):
 
     downloadDestination = 'http://enews24.tving.com/search?bCode=13&searchTerm='
     driver = webdriver.Chrome('/usr/bin/chromedriver')
     driver.get(downloadDestination)
+
+    title = ""
 
     try:
 
@@ -25,33 +29,41 @@ def get_link_from_news_title(keyword, type, press, txt=None, str_url=None, strin
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(3)
 
-        # str_url = ""
-        # string_item = ""
-        # txt = ""
+
+        art = ""
+        str_url = ""
+        string_item = ""
+
+        # title = ""
 
         for t in driver.find_elements_by_xpath(
                 '//*[@id="container"]/div/div[1]/div[3]/div[2]/ul/li/div/h3/span'):
-            txt = t.get_attribute('innerText')
+            title = t.get_attribute('innerText')
+            # article = Article(title_name=title)
 
-            for a in driver.find_elements_by_xpath('//*[@id="container"]/div/div/div/div/ul/li/div/a'):
-                url = a.get_attribute('href')
-                str_url = str(url)
-                source_code_from_url = urllib.request.urlopen(str_url)
-                soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
-                content_of_article = soup.select('div.articleContents')
+        for a in driver.find_elements_by_xpath('//*[@id="container"]/div/div/div/div/ul/li/div/a'):
+            url = a.get_attribute('href')
+            str_url = str(url)
+            source_code_from_url = urllib.request.urlopen(str_url)
+            soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
+            content_of_article = soup.select('div.articleContents')
 
-                for item in content_of_article:
-                    string = str(item.find_all(text=True))
-                    string_item = text_cleaner.clean_text(string)
+            for item in content_of_article:
+                string = str(item.find_all(text=True))
+                string_item = text_cleaner.clean_text(string)
 
-        print(txt)
-        a = Article(title_name=txt, title_link=str_url, body=string_item, type=type, press=press)
-        db.session.add(a)
-        db.session.commit()
-        print('########################################## 완료 !!! ############################################')
+                article_group = Article(title_link=str_url, type=type, press=press, body=string_item)
+
+                print(title)
+                article_group.title_name = title
+                db.session.add(article_group)
+
+                db.session.commit()
+                print('########################################## 완료 !!! ############################################')
 
     except Exception:
         pass
+
 
 def main():
 

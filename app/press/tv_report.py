@@ -9,9 +9,6 @@ from app.models import Article
 
 TARGET_URL_BEFORE_KEYWORD = 'http://www.tvreport.co.kr/?c=news&m=search&q='
 
-print('word_test24_start')
-
-
 # 기사 검색 페이지에서 기사 제목에 링크된 기사 본문 주소 받아오기
 def get_link_from_news_title(URL, type):
     # for i in range(page_num):

@@ -45,7 +45,7 @@ def get_link_from_news_title(page_num, URL, type, press):
                 string = str(item.find_all(text=True))
                 print(string)
                 string_item = text_cleaner.clean_text(string)
-                a = Article(title_name=title_link, body=string_item, type=type, press=press)
+                a = Article(title_name=title_name, title_link=title_link, body=string_item, type=type, press=press)
                 db.session.add(a)
                 db.session.commit()
 

@@ -10,5 +10,3 @@ class Article(db.Model):
     title_link = db.Column(db.String)
     body = db.Column(db.String)
 
-
-
