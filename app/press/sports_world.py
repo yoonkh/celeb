@@ -13,13 +13,13 @@ from app.models import Article
 
 def get_link_from_news_title(keyword, type, press):
 
+    downloadDestination = 'http://www.sportsworldi.com/search/main.do'
+
+    # dir = r'/etc/apt/sources.list.d/google.list'
+    driver = webdriver.Chrome('/usr/bin/chromedriver')
+    driver.get(downloadDestination)
+
     try:
-        downloadDestination = 'http://www.sportsworldi.com/search/main.do'
-
-        # dir = r'/etc/apt/sources.list.d/google.list'
-        driver = webdriver.Chrome('/usr/bin/chromedriver')
-        driver.get(downloadDestination)
-
         # driver.find_element_by_name("kw").clear()
         driver.find_element_by_id('searchWord').send_keys(keyword)
         driver.find_element_by_xpath('//*[@id="wps_layout1_box1"]/div/div/div[2]/a/img').click()
@@ -31,8 +31,6 @@ def get_link_from_news_title(keyword, type, press):
             url = a.get_attribute('href')
             str_url = str(url)
             print(str_url)
-
-            # if len(str_url) < 44:
             source_code_from_url = urllib.request.urlopen(str_url)
             soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
             content_of_article = soup.select('div#article_content')
@@ -52,7 +50,7 @@ def get_link_from_news_title(keyword, type, press):
                 # print(item)
                 string = str(item.find_all(text=True))
                 string_item = text_cleaner.clean_text(string)
-                a = Article(title_name=title_item, itle_link=str_url, body=string_item, type=type, press=press)
+                a = Article(title_name=title_item, title_link=str_url, body=string_item, type=type, press=press)
                 db.session.add(a)
                 db.session.commit()
     except Exception:
