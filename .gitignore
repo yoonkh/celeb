@@ -48,3 +48,6 @@ venv
 
 #requirements
 requirements/
+
+#keywords
+app/keywords.py
