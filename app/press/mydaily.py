@@ -16,32 +16,33 @@ def get_link_from_news_title(page_num, URL, type, press):
     for i in range(page_num):
         current_page_num = 1 + i
         URL_with_page_num = URL + str(current_page_num)
-        # print(URL_with_page_num)
         source_code_from_URL = urllib.request.urlopen(URL_with_page_num)
         soup = BeautifulSoup(source_code_from_URL, 'lxml', from_encoding='utf-8')
-        # print(soup)
-        # print(soup.find_all('div', 'section_list_text'))
+
         for title in soup.find_all('div', 'section_list_text'):
-            # print(title)
             title_link = title.select('a')
-            # print(title_link)
             article_URL = title_link[0]['href']
             edit_title_URL = TARGET_URL_BEFORE_MAIN + article_URL[1:]
-            print(edit_title_URL)
+            # print(edit_title_URL)
 
             source_code_from_url = urllib.request.urlopen(edit_title_URL)
             soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
+            content_of_article = soup.select('div.read_view_wrap > dd')
 
-            # 동아일보 기사 제목도 함께 추출
-            # content_of_article_title = soup.select('div.article_title > h2')
-            content_of_article = soup.select('div.read_view_text')
+            title_item = soup.select('div.read_view_wrap > dt')
+            print(title_item)
 
-            # for item in content_of_article_title + content_of_article:
+            tit = ""
+
+            # for t in title_item:
+            #     string = str(t.find_all(text=True))
+            #     tit = text_cleaner.clean_text(string)
+
             for item in content_of_article:
                 string = str(item.find_all(text=True))
                 print(string)
                 string_item = text_cleaner.clean_text(string)
-                a = Article(title_name=edit_title_URL, body=string_item, type=type, press=press)
+                a = Article(title_link=edit_title_URL, body=string_item, type=type, press=press)
                 db.session.add(a)
                 db.session.commit()
 

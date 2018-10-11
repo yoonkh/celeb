@@ -6,15 +6,11 @@ from app import db, text_cleaner, keywords
 from app.models import Article
 
 
-
-
 def get_link_from_news_title(keyword, type, press):
 
     downloadDestination = 'http://enews24.tving.com/search?bCode=13&searchTerm='
     driver = webdriver.Chrome('/usr/bin/chromedriver')
     driver.get(downloadDestination)
-
-    title = ""
 
     try:
 
@@ -29,35 +25,27 @@ def get_link_from_news_title(keyword, type, press):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(3)
 
-
-        art = ""
-        str_url = ""
-        string_item = ""
-
-        # title = ""
-
-        for t in driver.find_elements_by_xpath(
-                '//*[@id="container"]/div/div[1]/div[3]/div[2]/ul/li/div/h3/span'):
-            title = t.get_attribute('innerText')
-            # article = Article(title_name=title)
-
         for a in driver.find_elements_by_xpath('//*[@id="container"]/div/div/div/div/ul/li/div/a'):
             url = a.get_attribute('href')
             str_url = str(url)
             source_code_from_url = urllib.request.urlopen(str_url)
             soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
             content_of_article = soup.select('div.articleContents')
+            title = soup.select('h2.title')
+
+            title_item = ""
+
+            for t in title:
+                string = str(t.find_all(text=True))
+                title_item = text_cleaner.clean_text(string)
 
             for item in content_of_article:
                 string = str(item.find_all(text=True))
                 string_item = text_cleaner.clean_text(string)
 
-                article_group = Article(title_link=str_url, type=type, press=press, body=string_item)
+                article_group = Article(title_name=title_item, title_link=str_url, type=type, press=press, body=string_item)
 
-                print(title)
-                article_group.title_name = title
                 db.session.add(article_group)
-
                 db.session.commit()
                 print('########################################## 완료 !!! ############################################')
 

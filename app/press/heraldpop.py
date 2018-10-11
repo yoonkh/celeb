@@ -39,13 +39,20 @@ def get_link_from_news_title(page_num, URL, type, press):
             # 동아일보 기사 제목도 함께 추출
             # content_of_article_title = soup.select('div.article_title > h2')
             content_of_article = soup.select('div#CmAdContent')
+            title = soup.select('div.top > div.title > h1')
+
+            title_item = ""
+
+            for t in title:
+                string = str(t.find_all(text=True))
+                title_item = text_cleaner.clean_text(string)
 
             # for item in content_of_article_title + content_of_article:
             for item in content_of_article:
                 string = str(item.find_all(text=True))
                 print(string)
                 string_item = text_cleaner.clean_text(string)
-                a = Article(title_name=title_name, title_link=title_link, body=string_item, type=type, press=press)
+                a = Article(title_name=title_item, title_link=title_link, body=string_item, type=type, press=press)
                 db.session.add(a)
                 db.session.commit()
 

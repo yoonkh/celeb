@@ -46,11 +46,20 @@ def get_link_from_news_title(keyword, type, press):
         content_of_article = soup.select('div#CLtag')
         # print(content_of_article)
         # for item in content_of_article_title + content_of_article:
+
+        title = soup.select('span.art_title')
+
+        title_item = ""
+
+        for t in title:
+            string = str(t.find_all(text=True))
+            title_item = text_cleaner.clean_text(string)
+
         for item in content_of_article:
             # print(item)
             string = str(item.find_all(text=True))
             string_item = text_cleaner.clean_text(string)
-            article = Article(title_name=str_url, body=string_item, type=type, press=press)
+            article = Article(title_name=title_item, title_link=str_url, body=string_item, type=type, press=press)
             db.session.add(article)
             db.session.commit()
             print('#####################Success######################')

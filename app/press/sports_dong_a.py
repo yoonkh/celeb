@@ -28,7 +28,6 @@ def get_link_from_news_title(page_num, URL, type, press):
                 article_URL = title_link[0]['href']
                 print(article_URL)
 
-
                 source_code_from_url = urllib.request.urlopen(article_URL)
                 soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
                 # content_of_article_title = soup.select('div.article_title > h2')

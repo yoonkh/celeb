@@ -37,11 +37,20 @@ def get_link_from_news_title(keyword, type, press):
             content_of_article = soup.select('div#etv_news_content')
             # print(content_of_article)
             # for item in content_of_article_title + content_of_article:
+
+            title = soup.select('div.wrap_tit > h1')
+
+            title_item = ""
+
+            for t in title:
+                string = str(t.find_all(text=True))
+                title_item = text_cleaner.clean_text(string)
+
             for item in content_of_article:
                 # print(item)
                 string = str(item.find_all(text=True))
                 string_item = text_cleaner.clean_text(string)
-                a = Article(title_name=str_url, body=string_item, type=type, press=press)
+                a = Article(title_name=title_item, title_link=str_url, body=string_item, type=type, press=press)
                 db.session.add(a)
                 db.session.commit()
     except Exception:
