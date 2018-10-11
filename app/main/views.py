@@ -12,10 +12,10 @@ def index():
 
 @main.route('/crawl')
 def crawl():
-    sports_dong_a.main() # 스포츠동아
+    # sports_dong_a.main() # 스포츠동아
     # tv_report.main() # TV리포트
     # sports_seoul.main() # 스포츠서울
-    # sports_hangook.main() # 스포츠한국
+    sports_hangook.main() # 스포츠한국
     # sports_world.main() # 스포츠월드
     # joynews_inews.main() # 조이뉴스
     # sbs.main() # SBS연예스포츠
