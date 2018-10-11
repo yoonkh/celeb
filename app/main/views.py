@@ -16,7 +16,7 @@ def crawl():
     # tv_report.main() # TV리포트
     # sports_seoul.main() # 스포츠서울
     # sports_hangook.main() # 스포츠한국
-    # sports_world.main() # 스포츠월드
+    sports_world.main() # 스포츠월드
     # joynews_inews.main() # 조이뉴스
     # sbs.main() # SBS연예스포츠
     # enews24.main() # enews24
@@ -26,7 +26,7 @@ def crawl():
     # star_news.main() # 스타뉴스
     # sports_khan.main() # 스포츠경향
     # sports_chosun.main() # 스포츠조선
-    sports_today.main() # 스포츠투데이
+    # sports_today.main() # 스포츠투데이
     # xports_news.main() # 엑스포츠뉴스
     # mbc_sports_plus.main() # 엠스플뉴스
     # mk_sports.main() # MK스포츠
