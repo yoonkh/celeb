@@ -66,7 +66,7 @@ def main():
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type, press)
+        get_link_from_news_title(1, url, type, press)
 
     for keyword in keywords.keywords2:
         print(keyword)
@@ -75,7 +75,7 @@ def main():
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type, press)
+        get_link_from_news_title(1, url, type, press)
     for keyword in keywords.keywords3:
         print(keyword)
         type = '엑소'
@@ -83,7 +83,7 @@ def main():
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type, press)
+        get_link_from_news_title(1, url, type, press)
     for keyword in keywords.keywords4:
         print(keyword)
         type = '비투비'
@@ -91,7 +91,7 @@ def main():
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type, press)
+        get_link_from_news_title(1, url, type, press)
     for keyword in keywords.keywords5:
         print(keyword)
         type = '세븐틴'
@@ -99,7 +99,7 @@ def main():
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type, press)
+        get_link_from_news_title(1, url, type, press)
     for keyword in keywords.keywords6:
         print(keyword)
         type = '뉴이스트'
@@ -107,7 +107,7 @@ def main():
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type, press)
+        get_link_from_news_title(1, url, type, press)
     for keyword in keywords.keywords7:
         print(keyword)
         type = '트와이스'
@@ -115,7 +115,7 @@ def main():
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type, press)
+        get_link_from_news_title(1, url, type, press)
     for keyword in keywords.keywords8:
         print(keyword)
         type = '레드벨벳'
@@ -123,4 +123,4 @@ def main():
         k = keyword
         url = TARGET_URL_BEFORE_PAGE_NUM + TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(3, url, type, press)
+        get_link_from_news_title(1, url, type, press)

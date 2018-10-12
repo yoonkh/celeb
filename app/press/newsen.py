@@ -109,62 +109,62 @@ def main():
         # get_link_from_news_title(k, type, press)
         get_link_from_news_title(k, type, press)
 
-    # for keyword in keywords.keywords2:
-    #     print(keyword)
-    #     type = '방탄소년단'
-    #     press = '뉴스엔'
-    #     k = keyword
-    #     url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
-    #     # output_file = open('워너원_in.txt', 'a')
-    #     get_link_from_news_title(3, url, type, press)
-    # for keyword in keywords.keywords3:
-    #     print(keyword)
-    #     type = '엑소'
-    #     press = '뉴스엔'
-    #     k = keyword
-    #     url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
-    #     # output_file = open('워너원_in.txt', 'a')
-    #     get_link_from_news_title(3, url, type, press)
-    # for keyword in keywords.keywords4:
-    #     print(keyword)
-    #     type = '비투비'
-    #     press = '뉴스엔'
-    #     k = keyword
-    #     url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
-    #     # output_file = open('워너원_in.txt', 'a')
-    #     get_link_from_news_title(3, url, type, press)
-    # for keyword in keywords.keywords5:
-    #     print(keyword)
-    #     type = '세븐틴'
-    #     press = '뉴스엔'
-    #     k = keyword
-    #     url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
-    #     # output_file = open('워너원_in.txt', 'a')
-    #     get_link_from_news_title(3, url, type, press)
-    # for keyword in keywords.keywords6:
-    #     print(keyword)
-    #     type = '뉴이스트'
-    #     press = '뉴스엔'
-    #     k = keyword
-    #     url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
-    #     # output_file = open('워너원_in.txt', 'a')
-    #     get_link_from_news_title(3, url, type, press)
-    # for keyword in keywords.keywords7:
-    #     print(keyword)
-    #     type = '트와이스'
-    #     press = '뉴스엔'
-    #     k = keyword
-    #     url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
-    #     # output_file = open('워너원_in.txt', 'a')
-    #     get_link_from_news_title(3, url, type, press)
-    # for keyword in keywords.keywords8:
-    #     print(keyword)
-    #     type = '레드벨벳'
-    #     press = '뉴스엔'
-    #     k = keyword
-    #     url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
-    #     # output_file = open('워너원_in.txt', 'a')
-    #     get_link_from_news_title(3, url, type, press)
+    for keyword in keywords.keywords2:
+        print(keyword)
+        type = '방탄소년단'
+        press = '뉴스엔'
+        k = keyword
+        # url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(k, type, press)
+    for keyword in keywords.keywords3:
+        print(keyword)
+        type = '엑소'
+        press = '뉴스엔'
+        k = keyword
+        # url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(k, type, press)
+    for keyword in keywords.keywords4:
+        print(keyword)
+        type = '비투비'
+        press = '뉴스엔'
+        k = keyword
+        # url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(k, type, press)
+    for keyword in keywords.keywords5:
+        print(keyword)
+        type = '세븐틴'
+        press = '뉴스엔'
+        k = keyword
+        # url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(k, type, press)
+    for keyword in keywords.keywords6:
+        print(keyword)
+        type = '뉴이스트'
+        press = '뉴스엔'
+        k = keyword
+        # url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(k, type, press)
+    for keyword in keywords.keywords7:
+        print(keyword)
+        type = '트와이스'
+        press = '뉴스엔'
+        k = keyword
+        # url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(k, type, press)
+    for keyword in keywords.keywords8:
+        print(keyword)
+        type = '레드벨벳'
+        press = '뉴스엔'
+        k = keyword
+        # url = TARGET_URL_BEFORE_BASE + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_REST
+        # output_file = open('워너원_in.txt', 'a')
+        get_link_from_news_title(k, type, press)
 
 # print('word_test_end')
 
