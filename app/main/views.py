@@ -22,7 +22,7 @@ def crawl():
     # enews24.main() # enews24
     # isplus.main() # 일간스포츠
     # newsen.main() # 뉴스엔
-    mydaily.main() # 마이데일리
+    # mydaily.main() # 마이데일리
     # star_news.main() # 스타뉴스
     # sports_khan.main() # 스포츠경향
     # sports_chosun.main() # 스포츠조선
@@ -31,7 +31,7 @@ def crawl():
     # mbc_sports_plus.main() # 엠스플뉴스
     # mk_sports.main() # MK스포츠
     # osen.main() # OSEN
-    # spotv_news.main() # SPOTV뉴스
+    spotv_news.main() # SPOTV뉴스
     # ten_asia.main() # 텐아시아
     # tv_daily.main() # 티브이데일리
     # heraldpop.main() # 헤럴드팝
