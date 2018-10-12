@@ -21,8 +21,6 @@ def get_link_from_news_title(page_num, URL, type, press):
         # print(URL_with_page_num)
         source_code_from_URL = urllib.request.urlopen(URL_with_page_num)
         soup = BeautifulSoup(source_code_from_URL, 'lxml', from_encoding='utf-8')
-        # print(soup)
-        # print(soup.find_all('div', 'section_list_text'))
 
         for title in soup.select('dl.dlist > dt > a'):
             # print(title)
@@ -39,12 +37,19 @@ def get_link_from_news_title(page_num, URL, type, press):
             # content_of_article_title = soup.select('div.article_title > h2')
             content_of_article = soup.select('span.newsView > div')
 
-            # for item in content_of_article_title + content_of_article:
+            tit = soup.select('div#articleSubecjt > h3')
+
+            title_item = ""
+
+            for t in tit:
+                string = str(t.find_all(text=True))
+                title_item = text_cleaner.clean_text(string)
+
             for item in content_of_article:
                 string = str(item.find_all(text=True))
                 print(string)
                 string_item = text_cleaner.clean_text(string)
-                a = Article(title_name=title_link, body=string_item, type=type, press=press)
+                a = Article(title_name=title_item, title_link=title_link, body=string_item, type=type, press=press)
                 db.session.add(a)
                 db.session.commit()
 

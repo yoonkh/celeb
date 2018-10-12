@@ -29,20 +29,20 @@ def get_link_from_news_title(page_num, URL, type, press):
             soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
             content_of_article = soup.select('div.read_view_wrap > dd')
 
-            title_item = soup.select('div.read_view_wrap > dt')
+            title_item = soup.select('div.read_view_wrap')[0].find_all('dt')
             print(title_item)
 
             tit = ""
 
-            # for t in title_item:
-            #     string = str(t.find_all(text=True))
-            #     tit = text_cleaner.clean_text(string)
+            for t in title_item:
+                string = str(t.find_all(text=True))
+                tit = text_cleaner.clean_text(string)
 
             for item in content_of_article:
                 string = str(item.find_all(text=True))
                 print(string)
                 string_item = text_cleaner.clean_text(string)
-                a = Article(title_link=edit_title_URL, body=string_item, type=type, press=press)
+                a = Article(title_name=tit, title_link=edit_title_URL, body=string_item, type=type, press=press)
                 db.session.add(a)
                 db.session.commit()
 
@@ -67,6 +67,7 @@ def main():
         url = TARGET_URL_BEFORE_MAIN + TARGET_URL_BEFORE_KEYWORD + quote(k, encoding='euc-kr') + TARGET_URL_BEFORE_PAGE
         # output_file = open('워너원_in.txt', 'a')
         get_link_from_news_title(3, url, type, press)
+
     for keyword in keywords.keywords3:
         print(keyword)
         type = '엑소'

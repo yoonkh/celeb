@@ -10,7 +10,7 @@ from app.models import Article
 TARGET_URL_BEFORE_KEYWORD = 'http://www.tvreport.co.kr/?c=news&m=search&q='
 
 # 기사 검색 페이지에서 기사 제목에 링크된 기사 본문 주소 받아오기
-def get_link_from_news_title(URL, type):
+def get_link_from_news_title(URL, type, press):
     # for i in range(page_num):
     # current_page_num = i
     # position = URL.index('r/')
@@ -34,12 +34,20 @@ def get_link_from_news_title(URL, type):
         soup = BeautifulSoup(source_code_from_url, 'lxml', from_encoding='utf-8')
         content_of_article = soup.select('div#CmAdContent')
         print(content_of_article)
-        # for item in content_of_article_title + content_of_article:
+
+        tit = soup.select('div.title > h2')
+
+        title_item = ""
+
+        for t in tit:
+            string = str(t.find_all(text=True))
+            title_item = text_cleaner.clean_text(string)
+
         for item in content_of_article:
             string = str(item.find_all(text=True))
             print(string)
             string_item = text_cleaner.clean_text(string)
-            a = Article(title_name=title_link, body=string_item, type=type)
+            a = Article(title_name=title_item, title_link=title_link, body=string_item, type=type, press=press)
             db.session.add(a)
             db.session.commit()
 
@@ -49,59 +57,67 @@ def main():
     for keyword in keywords.keywords1:
         print(keyword)
         type = '워너원'
+        press = 'TV레포트'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, type)
+        get_link_from_news_title(url, type, press)
     for keyword in keywords.keywords2:
         print(keyword)
         type = '방탄소년단'
+        press = 'TV레포트'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, type)
+        get_link_from_news_title(url, type, press)
     for keyword in keywords.keywords3:
         print(keyword)
         type = '엑소'
+        press = 'TV레포트'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, type)
+        get_link_from_news_title(url, type, press)
     for keyword in keywords.keywords4:
         print(keyword)
         type = '비투비'
+        press = 'TV레포트'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, type)
+        get_link_from_news_title(url, type, press)
     for keyword in keywords.keywords5:
         print(keyword)
         type = '세븐틴'
+        press = 'TV레포트'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, type)
+        get_link_from_news_title(url, type, press)
     for keyword in keywords.keywords6:
         print(keyword)
         type = '뉴이스트'
+        press = 'TV레포트'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, type)
+        get_link_from_news_title(url, type, press)
     for keyword in keywords.keywords7:
         print(keyword)
         type = '트와이스'
+        press = 'TV레포트'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, type)
+        get_link_from_news_title(url, type, press)
     for keyword in keywords.keywords8:
         print(keyword)
         type = '래드벨벳'
+        press = 'TV레포트'
         k = keyword
         url = TARGET_URL_BEFORE_KEYWORD + quote(k)
         # output_file = open('워너원_in.txt', 'a')
-        get_link_from_news_title(url, type)
+        get_link_from_news_title(url, type, press)
 
 
 # if __name__ == '__main__':
