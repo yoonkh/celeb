@@ -1,0 +1,18 @@
+branch-defaults:
+  develop:
+    environment: Celebee-dev
+    group_suffix: null
+global:
+  application_name: Celebee
+  branch: null
+  default_ec2_keyname: zizou0812
+  default_platform: Python 3.6
+  default_region: ap-northeast-2
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: git
+  workspace_type: Application
